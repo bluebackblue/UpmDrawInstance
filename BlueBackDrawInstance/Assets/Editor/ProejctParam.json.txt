@@ -1,0 +1,54 @@
+{
+	"namespace_author":"BlueBack",
+	"namespace_package":"DrawInstance",
+	"git_url":"https://github.com/bluebackblue/UpmDrawInstance",
+	"git_api":"https://api.github.com/repos/bluebackblue/UpmDrawInstance",
+	"git_path":"BlueBackDrawInstance/Assets/UPM",
+	"discription_simple":"ドローインスタンス",
+	"discription_detal":[
+		"ドローインスタンス"
+	],
+	"keyword":[
+		"drawinstance"
+	],
+	"changelog":[
+		"# Changelog",
+		"",
+		"## [0.0.0] - 2022-04-20",
+		"### Changes",
+		"- Init",
+		""
+	],
+	"root_readmemd_path":"../../README.md",
+	"need_unity_version":"2020.1",
+	"asmdef_runtime":{
+		"define_list":[
+		],
+		"reference_list":[
+		]
+	},
+	"asmdef_editor":{
+		"define_list":[
+		],
+		"reference_list":[
+			{
+			   "mode":"package",
+			   "package_fullname":"BlueBack.DrawInstance",
+				"url":"https://github.com/bluebackblue/UpmDrawInstance",
+				"define_package_pathname":"blueback.drawinstance"
+			}
+		]
+	},
+	"asmdef_sample":{
+		"define_list":[
+		],
+		"reference_list":[
+			{
+				"mode":"package",
+				"package_fullname":"BlueBack.DrawInstance",
+				"url":"https://github.com/bluebackblue/UpmDrawInstance",
+				"define_package_pathname":"blueback.drawinstance"
+			}
+		]
+	}
+}
