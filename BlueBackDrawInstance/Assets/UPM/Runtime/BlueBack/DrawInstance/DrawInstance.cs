@@ -14,15 +14,11 @@ namespace BlueBack.DrwaInstance
 
 		/** execute
 		*/
-		private DrawInstance_Execute_Base execute;
+		private Execute_Base execute;
 
-		/** graphicbuffer_list
+		/** drawcount
 		*/
-		private GraphicsBuffer_Base[] graphicbuffer_list;
-
-		/** count
-		*/
-		private int count;
+		private int drawcount;
 
 		/** drawinstanceparam
 		*/
@@ -31,23 +27,23 @@ namespace BlueBack.DrwaInstance
 
 		/** boudn
 		*/
-		private UnityEngine.Bounds bound;
+		public UnityEngine.Bounds bound;
 
 		/** shadowcastingmode
 		*/
-		private UnityEngine.Rendering.ShadowCastingMode shadowcastingmode;
+		public UnityEngine.Rendering.ShadowCastingMode shadowcastingmode;
 
 		/** receiveshadows
 		*/
-		private bool receiveshadows;
+		public bool receiveshadows;
 
 		/** lightprobeusage
 		*/
-		private UnityEngine.Rendering.LightProbeUsage lightprobeusage;
+		public UnityEngine.Rendering.LightProbeUsage lightprobeusage;
 
 		/** constructor
 		*/
-		public DrawInstance(UnityEngine.Mesh a_mesh,DrawInstance_Execute_Base a_execute,GraphicsBuffer_Base[] a_graphicbuffer_list)
+		public DrawInstance(UnityEngine.Mesh a_mesh,Execute_Base a_execute)
 		{
 			//mesh
 			this.mesh = a_mesh;
@@ -55,19 +51,13 @@ namespace BlueBack.DrwaInstance
 			//execute
 			this.execute = a_execute;
 
-			//graphicbuffer
-			this.graphicbuffer_list = a_graphicbuffer_list;
-			for(int ii=0;ii<this.graphicbuffer_list.Length;ii++){
-				this.graphicbuffer_list[ii].Create();
-			}
-
-			//count
-			this.count = 0;
+			//drawcount
+			this.drawcount = 0;
 
 			//drawinstanceparam
 			this.drawinstanceparam_raw = new uint[5]{0,0,0,0,0};
 			this.drawinstanceparam_raw[0] = (uint)this.mesh.GetIndexCount(0);
-			this.drawinstanceparam_raw[1] = (uint)this.count;
+			this.drawinstanceparam_raw[1] = (uint)this.drawcount;
 			this.drawinstanceparam_raw[2] = (uint)this.mesh.GetIndexStart(0);
 			this.drawinstanceparam_raw[3] = (uint)this.mesh.GetBaseVertex(0);
 			this.drawinstanceparam_buffer = new UnityEngine.ComputeBuffer(1,this.drawinstanceparam_raw.Length * sizeof(uint),UnityEngine.ComputeBufferType.IndirectArguments);
@@ -96,9 +86,6 @@ namespace BlueBack.DrwaInstance
 			//execute
 			this.execute = null;
 
-			//graphicbuffer
-			this.graphicbuffer_list = null;
-
 			//drawinstanceparam
 			if(this.drawinstanceparam_buffer != null){
 				this.drawinstanceparam_buffer.Dispose();
@@ -108,21 +95,21 @@ namespace BlueBack.DrwaInstance
 
 		/** Draw
 		*/
-		public void Draw(UnityEngine.Material a_material,UnityEngine.Camera a_camera,int a_layer)
+		public void Draw(UnityEngine.Material a_material,UnityEngine.Camera a_camera,int a_layer,int a_submesh)
 		{
 			//PreDraw
-			this.count = this.execute.PreDraw(a_material,this.graphicbuffer_list);
+			this.drawcount = this.execute.PreDraw(a_material);
 
 			//drawinstanceparam
 			{
-				this.drawinstanceparam_raw[1] = (uint)this.count;
+				this.drawinstanceparam_raw[1] = (uint)this.drawcount;
 				this.drawinstanceparam_buffer.SetData(this.drawinstanceparam_raw);
 			}
 
 			//DrawMeshInstancedIndirect
 			UnityEngine.Graphics.DrawMeshInstancedIndirect(
 				this.mesh,
-				0,
+				a_submesh,
 				a_material,
 				this.bound,
 				this.drawinstanceparam_buffer,

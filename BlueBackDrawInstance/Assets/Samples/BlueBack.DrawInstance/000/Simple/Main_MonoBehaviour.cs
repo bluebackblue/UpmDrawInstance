@@ -24,7 +24,7 @@ namespace BlueBack.DrawInstance.Samples.Simple
 		*/
 		void Start()
 		{
-			this.color2d = new Color2D(this.material,this.mesh);
+			this.color2d = new Color2D(this.material,this.mesh,UnityEngine.GameObject.Find("Camera").GetComponent<UnityEngine.Camera>());
 		}
 
 		/** Update

@@ -6,7 +6,7 @@ namespace BlueBack.DrawInstance.Samples.Simple
 {
 	/** Color2D
 	*/
-	public sealed class Color2D : BlueBack.DrwaInstance.DrawInstance_Execute_Base , System.IDisposable
+	public sealed class Color2D : BlueBack.DrwaInstance.Execute_Base , System.IDisposable
 	{
 		/** MAX
 		*/
@@ -21,30 +21,34 @@ namespace BlueBack.DrawInstance.Samples.Simple
 		*/
 		public UnityEngine.Material material;
 
-		/** drawcamera
+		/** camera
 		*/
-		public UnityEngine.Camera drawcamera;
+		public UnityEngine.Camera camera;
 
 		/** graphicbuffer_list
 		*/
-		public BlueBack.DrwaInstance.GraphicsBuffer_Base[] graphicbuffer_list;
+		public BlueBack.DrwaInstance.Buffer<Color2D_Status> drawinstance_buffer;
 
 		/** drawinstance
 		*/
 		public BlueBack.DrwaInstance.DrawInstance drawinstance;
 
+		/** index
+		*/
+		private int index;
+
 		/** constructor
 		*/
-		public Color2D(UnityEngine.Material a_material,UnityEngine.Mesh a_mesh)
+		public Color2D(UnityEngine.Material a_material,UnityEngine.Mesh a_mesh,UnityEngine.Camera a_camera)
 		{
-			//material
-			this.material = a_material;
-
 			//mesh
 			this.mesh = a_mesh;
 
-			//drawcamera
-			this.drawcamera = UnityEngine.GameObject.Find("Camera").GetComponent<UnityEngine.Camera>();
+			//material
+			this.material = a_material;
+
+			//camera
+			this.camera = a_camera;
 
 			//custom_matrix
 			{
@@ -61,29 +65,44 @@ namespace BlueBack.DrawInstance.Samples.Simple
 				this.material.SetMatrix("custom_matrix",t_custom_matrix);
 			}
 
-			//graphicbuffer_list
-			this.graphicbuffer_list = new BlueBack.DrwaInstance.GraphicsBuffer_Base[]{
-				new Color2D_GraphicsBuffer(),
-			};
+			this.drawinstance_buffer = new DrwaInstance.Buffer<Color2D_Status>(X_MAX * Y_MAX,24);
 
 			//drawinstance
-			this.drawinstance = new BlueBack.DrwaInstance.DrawInstance(this.mesh,this,this.graphicbuffer_list);
+			this.drawinstance = new BlueBack.DrwaInstance.DrawInstance(this.mesh,this);
+
+			//index
+			this.index = 0;
 		}
 
 		/** Draw
 		*/
 		public void Draw()
 		{
-			this.drawinstance.Draw(this.material,this.drawcamera,0);
+			this.drawinstance.Draw(this.material,this.camera,0,0);
 		}
 
-		/** [BlueBack.DrwaInstance.DrawInstance_Execute_Base]PreDraw
+		/** [BlueBack.DrwaInstance.Execute_Base]PreDraw
 		*/
-		public int PreDraw(UnityEngine.Material a_material,BlueBack.DrwaInstance.GraphicsBuffer_Base[] a_graphicbuffer_list)
+		public int PreDraw(UnityEngine.Material a_material)
 		{
-			for(int ii=0;ii<a_graphicbuffer_list.Length;ii++){
-				a_graphicbuffer_list[ii].PreDraw(a_material);
+			this.index++;
+
+			for(int yy=0;yy<Color2D.Y_MAX;yy++){
+				for(int xx=0;xx<Color2D.X_MAX;xx++){
+					UnityEngine.Vector2 t_local = new UnityEngine.Vector2((Color2D.X_MAX / 2 - xx),(Color2D.Y_MAX / 2 - yy));
+					this.drawinstance_buffer.raw[yy * Color2D.X_MAX + xx] = new Color2D_Status(
+						new UnityEngine.Vector3(xx,yy,0.0f),
+						new UnityEngine.Vector4(
+							UnityEngine.Mathf.Abs(UnityEngine.Mathf.Sin(UnityEngine.Time.realtimeSinceStartup - t_local.magnitude * 0.01f + 1)),
+							UnityEngine.Mathf.Abs(UnityEngine.Mathf.Sin(UnityEngine.Time.realtimeSinceStartup - t_local.magnitude * 0.01f + 2)),
+							UnityEngine.Mathf.Abs(UnityEngine.Mathf.Sin(UnityEngine.Time.realtimeSinceStartup - t_local.magnitude * 0.01f + 3)),
+							((xx + yy * Color2D.X_MAX) == (this.index % (Color2D.Y_MAX * Color2D.Y_MAX))) ? 0.0f : 1.0f
+						)
+					);
+				}
 			}
+
+			this.drawinstance_buffer.Apply(a_material,"status");
 
 			return X_MAX * Y_MAX;
 		}
@@ -98,12 +117,10 @@ namespace BlueBack.DrawInstance.Samples.Simple
 				this.drawinstance = null;
 			}
 
-			//graphicbuffer
-			if(this.graphicbuffer_list != null){
-				for(int ii=0;ii<this.graphicbuffer_list.Length;ii++){
-					this.graphicbuffer_list[ii].Dispose();
-				}
-				this.graphicbuffer_list = null;
+			//drawinstance_buffer
+			if(this.drawinstance_buffer != null){
+				this.drawinstance_buffer.Dispose();
+				this.drawinstance_buffer = null;
 			}
 		}
 	}
