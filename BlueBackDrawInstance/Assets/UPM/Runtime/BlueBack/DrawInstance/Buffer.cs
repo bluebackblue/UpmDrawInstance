@@ -51,6 +51,14 @@ namespace BlueBack.DrwaInstance
 			this.graphicsbuffer.SetData(this.raw);
 			a_material.SetBuffer(a_name,this.graphicsbuffer);
 		}
+
+		/** Apply
+		*/
+		public void Apply(UnityEngine.Material a_material,int a_shader_property_id)
+		{
+			this.graphicsbuffer.SetData(this.raw);
+			a_material.SetBuffer(a_shader_property_id,this.graphicsbuffer);
+		}
 	}
 }
 

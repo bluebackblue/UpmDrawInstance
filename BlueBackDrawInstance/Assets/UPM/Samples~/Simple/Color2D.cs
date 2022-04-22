@@ -6,32 +6,31 @@ namespace BlueBack.DrawInstance.Samples.Simple
 {
 	/** Color2D
 	*/
-	public sealed class Color2D : BlueBack.DrwaInstance.Execute_Base , System.IDisposable
+	public sealed class Color2D : System.IDisposable
 	{
 		/** MAX
 		*/
-		public const int X_MAX = 16 * 16;
-		public const int Y_MAX = 9 * 16;
+		public const int MAX_X = 16 * 16;
+		public const int MAX_Y = 9 * 16;
 
 		/** mesh
 		*/
 		public UnityEngine.Mesh mesh;
 
-		/** material
+		/** マテリアル。
 		*/
 		public UnityEngine.Material material;
+		public int material_id_status;
+		public int material_id_custom_matrix;
 
 		/** camera
 		*/
 		public UnityEngine.Camera camera;
 
-		/** graphicbuffer_list
-		*/
-		public BlueBack.DrwaInstance.Buffer<Color2D_Status> drawinstance_buffer;
-
 		/** drawinstance
 		*/
 		public BlueBack.DrwaInstance.DrawInstance drawinstance;
+		public BlueBack.DrwaInstance.Buffer<Color2D_Status> drawinstance_buffer;
 
 		/** index
 		*/
@@ -46,13 +45,15 @@ namespace BlueBack.DrawInstance.Samples.Simple
 
 			//material
 			this.material = a_material;
+			this.material_id_status = UnityEngine.Shader.PropertyToID("status");
+			this.material_id_custom_matrix = UnityEngine.Shader.PropertyToID("custom_matrix");
 
 			//camera
 			this.camera = a_camera;
 
 			//custom_matrix
 			{
-				float t_scale = 1.0f / (Y_MAX);
+				float t_scale = 1.0f / (MAX_Y);
 				float t_aspect = (float)UnityEngine.Screen.height / UnityEngine.Screen.width;
 			
 				UnityEngine.Matrix4x4 t_custom_matrix = new UnityEngine.Matrix4x4(
@@ -62,13 +63,12 @@ namespace BlueBack.DrawInstance.Samples.Simple
 					new UnityEngine.Vector4(-1.0f,-1.0f,0.0f,1.0f)
 				);
 
-				this.material.SetMatrix("custom_matrix",t_custom_matrix);
+				this.material.SetMatrix(this.material_id_custom_matrix,t_custom_matrix);
 			}
 
-			this.drawinstance_buffer = new DrwaInstance.Buffer<Color2D_Status>(X_MAX * Y_MAX,24);
-
 			//drawinstance
-			this.drawinstance = new BlueBack.DrwaInstance.DrawInstance(this.mesh,this);
+			this.drawinstance = new BlueBack.DrwaInstance.DrawInstance(this.mesh);
+			this.drawinstance_buffer = new DrwaInstance.Buffer<Color2D_Status>(MAX_X * MAX_Y,24);
 
 			//index
 			this.index = 0;
@@ -78,33 +78,28 @@ namespace BlueBack.DrawInstance.Samples.Simple
 		*/
 		public void Draw()
 		{
-			this.drawinstance.Draw(this.material,this.camera,0,0);
-		}
-
-		/** [BlueBack.DrwaInstance.Execute_Base]PreDraw
-		*/
-		public int PreDraw(UnityEngine.Material a_material)
-		{
-			this.index++;
-
-			for(int yy=0;yy<Color2D.Y_MAX;yy++){
-				for(int xx=0;xx<Color2D.X_MAX;xx++){
-					UnityEngine.Vector2 t_local = new UnityEngine.Vector2((Color2D.X_MAX / 2 - xx),(Color2D.Y_MAX / 2 - yy));
-					this.drawinstance_buffer.raw[yy * Color2D.X_MAX + xx] = new Color2D_Status(
-						new UnityEngine.Vector3(xx,yy,0.0f),
-						new UnityEngine.Vector4(
-							UnityEngine.Mathf.Abs(UnityEngine.Mathf.Sin(UnityEngine.Time.realtimeSinceStartup - t_local.magnitude * 0.01f + 1)),
-							UnityEngine.Mathf.Abs(UnityEngine.Mathf.Sin(UnityEngine.Time.realtimeSinceStartup - t_local.magnitude * 0.01f + 2)),
-							UnityEngine.Mathf.Abs(UnityEngine.Mathf.Sin(UnityEngine.Time.realtimeSinceStartup - t_local.magnitude * 0.01f + 3)),
-							((xx + yy * Color2D.X_MAX) == (this.index % (Color2D.Y_MAX * Color2D.Y_MAX))) ? 0.0f : 1.0f
-						)
-					);
+			int t_drawcount = MAX_X * MAX_Y;
+			
+			{
+				this.index++;
+				for(int yy=0;yy<MAX_Y;yy++){
+					for(int xx=0;xx<MAX_X;xx++){
+						UnityEngine.Vector2 t_local = new UnityEngine.Vector2((MAX_X / 2 - xx),(MAX_Y / 2 - yy));
+						this.drawinstance_buffer.raw[yy * MAX_X + xx] = new Color2D_Status(
+							new UnityEngine.Vector3(xx,yy,0.0f),
+							new UnityEngine.Vector4(
+								UnityEngine.Mathf.Abs(UnityEngine.Mathf.Sin(UnityEngine.Time.realtimeSinceStartup - t_local.magnitude * 0.01f + 1)),
+								UnityEngine.Mathf.Abs(UnityEngine.Mathf.Sin(UnityEngine.Time.realtimeSinceStartup - t_local.magnitude * 0.01f + 2)),
+								UnityEngine.Mathf.Abs(UnityEngine.Mathf.Sin(UnityEngine.Time.realtimeSinceStartup - t_local.magnitude * 0.01f + 3)),
+								((xx + yy * MAX_X) == (this.index % (MAX_Y * MAX_Y))) ? 0.0f : 1.0f
+							)
+						);
+					}
 				}
+				this.drawinstance_buffer.Apply(this.material,this.material_id_status);
 			}
 
-			this.drawinstance_buffer.Apply(a_material,"status");
-
-			return X_MAX * Y_MAX;
+			this.drawinstance.Draw(this.material,this.camera,0,t_drawcount,0);
 		}
 
 		/** [System.IDisposable]破棄。

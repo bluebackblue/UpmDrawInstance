@@ -12,14 +12,6 @@ namespace BlueBack.DrwaInstance
 		*/
 		private UnityEngine.Mesh mesh;
 
-		/** execute
-		*/
-		private Execute_Base execute;
-
-		/** drawcount
-		*/
-		private int drawcount;
-
 		/** drawinstanceparam
 		*/
 		private UnityEngine.ComputeBuffer drawinstanceparam_buffer;
@@ -43,21 +35,15 @@ namespace BlueBack.DrwaInstance
 
 		/** constructor
 		*/
-		public DrawInstance(UnityEngine.Mesh a_mesh,Execute_Base a_execute)
+		public DrawInstance(UnityEngine.Mesh a_mesh)
 		{
 			//mesh
 			this.mesh = a_mesh;
 
-			//execute
-			this.execute = a_execute;
-
-			//drawcount
-			this.drawcount = 0;
-
 			//drawinstanceparam
 			this.drawinstanceparam_raw = new uint[5]{0,0,0,0,0};
 			this.drawinstanceparam_raw[0] = (uint)this.mesh.GetIndexCount(0);
-			this.drawinstanceparam_raw[1] = (uint)this.drawcount;
+			this.drawinstanceparam_raw[1] = (uint)0;
 			this.drawinstanceparam_raw[2] = (uint)this.mesh.GetIndexStart(0);
 			this.drawinstanceparam_raw[3] = (uint)this.mesh.GetBaseVertex(0);
 			this.drawinstanceparam_buffer = new UnityEngine.ComputeBuffer(1,this.drawinstanceparam_raw.Length * sizeof(uint),UnityEngine.ComputeBufferType.IndirectArguments);
@@ -83,26 +69,31 @@ namespace BlueBack.DrwaInstance
 			//mesh
 			this.mesh = null;
 
-			//execute
-			this.execute = null;
-
-			//drawinstanceparam
+			//drawinstanceparam_buffer
 			if(this.drawinstanceparam_buffer != null){
 				this.drawinstanceparam_buffer.Dispose();
 				this.drawinstanceparam_buffer = null;
 			}
+
+			//drawinstanceparam_raw
+			this.drawinstanceparam_raw = null;
+
+			//bound
+
+			//shadowcastingmode
+
+			//receiveshadows
+
+			//lightprobeusage
 		}
 
 		/** Draw
 		*/
-		public void Draw(UnityEngine.Material a_material,UnityEngine.Camera a_camera,int a_layer,int a_submesh)
+		public void Draw(UnityEngine.Material a_material,UnityEngine.Camera a_camera,int a_layer,int a_drawcount,int a_submesh)
 		{
-			//PreDraw
-			this.drawcount = this.execute.PreDraw(a_material);
-
 			//drawinstanceparam
 			{
-				this.drawinstanceparam_raw[1] = (uint)this.drawcount;
+				this.drawinstanceparam_raw[1] = (uint)a_drawcount;
 				this.drawinstanceparam_buffer.SetData(this.drawinstanceparam_raw);
 			}
 

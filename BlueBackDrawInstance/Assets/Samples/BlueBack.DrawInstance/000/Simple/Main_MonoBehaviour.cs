@@ -22,21 +22,21 @@ namespace BlueBack.DrawInstance.Samples.Simple
 
 		/** Start
 		*/
-		void Start()
+		private void Start()
 		{
 			this.color2d = new Color2D(this.material,this.mesh,UnityEngine.GameObject.Find("Camera").GetComponent<UnityEngine.Camera>());
 		}
 
 		/** Update
 		*/
-		void Update()
+		private void Update()
 		{
 			this.color2d.Draw();
 		}
 
 		/** OnDisable
 		*/
-		void OnDisable()
+		private void OnDisable()
 		{
 			this.color2d.Dispose();
 		}
