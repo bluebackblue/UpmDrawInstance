@@ -57,9 +57,10 @@ namespace BlueBack.DrawInstance.Samples.Simple3D
 			for(int ii=0;ii<this.list.Length;ii++){
 				this.list[ii] = new Color3D_Item(){
 					position = new UnityEngine.Vector3(UnityEngine.Random.value * 100 - 50,UnityEngine.Random.value * 100 - 50,UnityEngine.Random.value * 100 - 50),
+					position_delta = UnityEngine.Quaternion.AngleAxis(UnityEngine.Random.value * 1.0f,new UnityEngine.Vector3(UnityEngine.Random.value * 0.1f,1.0f,UnityEngine.Random.value * 0.1f).normalized),
 					quaternion = UnityEngine.Quaternion.identity,
 					scale = new UnityEngine.Vector3(1,1,1),
-					quaternion_delta = UnityEngine.Quaternion.AngleAxis(UnityEngine.Random.value * 3,new UnityEngine.Vector3(1,1,1).normalized)
+					quaternion_delta = UnityEngine.Quaternion.AngleAxis(UnityEngine.Random.value * 3.0f,new UnityEngine.Vector3(1,1,1).normalized)
 				};
 			}
 		}
@@ -74,12 +75,14 @@ namespace BlueBack.DrawInstance.Samples.Simple3D
 				this.list[ii].quaternion = this.list[ii].quaternion_delta * this.list[ii].quaternion;
 				this.list[ii].quaternion.Normalize();
 
+				this.list[ii].position = this.list[ii].position_delta * this.list[ii].position;
+
 				UnityEngine.Matrix4x4 t_matrix = UnityEngine.Matrix4x4.TRS(this.list[ii].position,this.list[ii].quaternion,this.list[ii].scale);
 
 				UnityEngine.Vector4 t_color = new UnityEngine.Vector4(
-					UnityEngine.Mathf.Abs(UnityEngine.Mathf.Sin(UnityEngine.Time.realtimeSinceStartup - ii + 1)),
-					UnityEngine.Mathf.Abs(UnityEngine.Mathf.Sin(UnityEngine.Time.realtimeSinceStartup - ii + 2)),
-					UnityEngine.Mathf.Abs(UnityEngine.Mathf.Sin(UnityEngine.Time.realtimeSinceStartup - ii + 3)),
+					UnityEngine.Mathf.Abs(UnityEngine.Mathf.Sin(UnityEngine.Time.realtimeSinceStartup * 15 - ii + 1)),
+					UnityEngine.Mathf.Abs(UnityEngine.Mathf.Sin(UnityEngine.Time.realtimeSinceStartup * 15 - ii + 2)),
+					UnityEngine.Mathf.Abs(UnityEngine.Mathf.Sin(UnityEngine.Time.realtimeSinceStartup * 15 - ii + 3)),
 					1.0f
 				);
 
