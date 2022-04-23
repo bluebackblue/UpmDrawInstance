@@ -4,7 +4,7 @@
 */
 
 
-Shader "BlueBack/DrawInstance/Samples/Simple/Color2D"
+Shader "BlueBack/DrawInstance/Samples/Simple2D/Color2D"
 {
 	Properties
 	{

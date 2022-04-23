@@ -1,14 +1,14 @@
 
 
-/** BlueBack.DrawInstance.Samples.Simple
+/** BlueBack.DrawInstance.Samples.Simple2D
 */
-namespace BlueBack.DrawInstance.Samples.Simple
+namespace BlueBack.DrawInstance.Samples.Simple2D
 {
 	/** Main_MonoBehaviour
 	*/
 	public class Main_MonoBehaviour : UnityEngine.MonoBehaviour
 	{
-		/** execute
+		/** color2d
 		*/
 		public Color2D color2d;
 
