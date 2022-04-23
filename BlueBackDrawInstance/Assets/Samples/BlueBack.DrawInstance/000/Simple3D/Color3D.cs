@@ -77,9 +77,9 @@ namespace BlueBack.DrawInstance.Samples.Simple3D
 				UnityEngine.Matrix4x4 t_matrix = UnityEngine.Matrix4x4.TRS(this.list[ii].position,this.list[ii].quaternion,this.list[ii].scale);
 
 				UnityEngine.Vector4 t_color = new UnityEngine.Vector4(
-					UnityEngine.Mathf.Abs(UnityEngine.Mathf.Sin(UnityEngine.Time.realtimeSinceStartup - ii + 1)),
-					UnityEngine.Mathf.Abs(UnityEngine.Mathf.Sin(UnityEngine.Time.realtimeSinceStartup - ii + 2)),
-					UnityEngine.Mathf.Abs(UnityEngine.Mathf.Sin(UnityEngine.Time.realtimeSinceStartup - ii + 3)),
+					UnityEngine.Mathf.Abs(UnityEngine.Mathf.Sin(UnityEngine.Time.realtimeSinceStartup * 15 - ii + 1)),
+					UnityEngine.Mathf.Abs(UnityEngine.Mathf.Sin(UnityEngine.Time.realtimeSinceStartup * 15 - ii + 2)),
+					UnityEngine.Mathf.Abs(UnityEngine.Mathf.Sin(UnityEngine.Time.realtimeSinceStartup * 15 - ii + 3)),
 					1.0f
 				);
 
