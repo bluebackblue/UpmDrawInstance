@@ -99,7 +99,7 @@ namespace BlueBack.DrawInstance.Samples.Simple2D
 				this.drawinstance_buffer.Apply(this.material,this.material_id_status);
 			}
 
-			this.drawinstance.Draw(this.material,this.camera,0,t_drawcount,0);
+			this.drawinstance.Draw(this.material,null,this.camera,0,t_drawcount,0);
 		}
 
 		/** [System.IDisposable]破棄。

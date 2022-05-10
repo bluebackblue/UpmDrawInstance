@@ -89,7 +89,7 @@ namespace BlueBack.DrwaInstance
 
 		/** Draw
 		*/
-		public void Draw(UnityEngine.Material a_material,UnityEngine.Camera a_camera,int a_layer,int a_drawcount,int a_submesh)
+		public void Draw(UnityEngine.Material a_material,UnityEngine.MaterialPropertyBlock a_material_propertyblock,UnityEngine.Camera a_camera,int a_layer,int a_drawcount,int a_submesh)
 		{
 			//drawinstanceparam
 			{
@@ -105,7 +105,7 @@ namespace BlueBack.DrwaInstance
 				this.bound,
 				this.drawinstanceparam_buffer,
 				0,
-				null,
+				a_material_propertyblock,
 				this.shadowcastingmode,
 				this.receiveshadows,
 				a_layer,
