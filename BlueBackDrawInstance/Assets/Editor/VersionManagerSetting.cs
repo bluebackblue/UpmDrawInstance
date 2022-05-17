@@ -7,6 +7,13 @@
 */
 
 
+/** define
+*/
+#if((ASMDEF_BLUEBACK_VERSIONMANAGER)||(USERDEF_BLUEBACK_VERSIONMANAGER))
+#define ASMDEF_TRUE
+#endif
+
+
 /** Editor
 */
 #if(UNITY_EDITOR)
@@ -20,6 +27,7 @@ namespace Editor
 		/** VersionManagerSetting
 		*/
 		static VersionManagerSetting()
+		#if(ASMDEF_TRUE)
 		{
 			//Object_RootUssUxml
 			BlueBack.VersionManager.Editor.Object_RootUssUxml.Save(false);
@@ -98,6 +106,11 @@ namespace Editor
 				},
 			};
 		}
+		#else
+		{
+			#warning "ASMDEF_TRUE"
+		}
+		#endif
 	}
 }
 #endif

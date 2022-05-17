@@ -22,7 +22,7 @@ namespace BlueBack.DrawInstance.Editor
 
 		/** MenuItem_UpdatePackage_Develop
 		*/
-		#if(!DEF_USER_BLUEBACK_DRAWINSTANCE)
+		#if(!USERDEF_BLUEBACK_DRAWINSTANCE)
 		[UnityEditor.MenuItem("BlueBack/DrawInstance/UpdatePackage/Develop")]
 		#endif
 		public static void MenuItem_UpdatePackage_Develop()
@@ -40,7 +40,7 @@ namespace BlueBack.DrawInstance.Editor
 
 		/** MenuItem_UpdatePackage_Last
 		*/
-		#if(!DEF_USER_BLUEBACK_DRAWINSTANCE)
+		#if(!USERDEF_BLUEBACK_DRAWINSTANCE)
 		[UnityEditor.MenuItem("BlueBack/DrawInstance/UpdatePackage/Last " + Version.packageversion)]
 		#endif
 		public static void MenuItem_UpdatePackage_Last()

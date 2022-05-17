@@ -2,6 +2,7 @@
   "dependencies": {
     "blueback.assetlib": "https://github.com/bluebackblue/UpmAssetLib.git?path=BlueBackAssetLib/Assets/UPM",
     "blueback.code": "https://github.com/bluebackblue/UpmCode.git?path=BlueBackCode/Assets/UPM",
+    "blueback.install": "https://github.com/bluebackblue/UpmInstall.git?path=BlueBackInstall/Assets/UPM",
     "blueback.jsonitem": "https://github.com/bluebackblue/UpmJsonItem.git?path=BlueBackJsonItem/Assets/UPM",
     "blueback.versionmanager": "https://github.com/bluebackblue/UpmVersionManager.git?path=BlueBackVersionManager/Assets/UPM",
     "com.unity.ide.visualstudio": "2.0.15",
