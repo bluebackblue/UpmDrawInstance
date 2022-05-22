@@ -55,7 +55,7 @@ namespace BlueBack.DrawInstance.Samples.Simple2D
 			{
 				float t_scale = 1.0f / (MAX_Y);
 				float t_aspect = (float)UnityEngine.Screen.height / UnityEngine.Screen.width;
-			
+
 				UnityEngine.Matrix4x4 t_custom_matrix = new UnityEngine.Matrix4x4(
 					new UnityEngine.Vector4(t_aspect * t_scale * 2,0.0f,0.0f,0.0f),
 					new UnityEngine.Vector4(0.0f,t_scale * 2,0.0f,0.0f),
@@ -79,7 +79,7 @@ namespace BlueBack.DrawInstance.Samples.Simple2D
 		public void Draw()
 		{
 			int t_drawcount = MAX_X * MAX_Y;
-			
+
 			{
 				this.index++;
 				for(int yy=0;yy<MAX_Y;yy++){
