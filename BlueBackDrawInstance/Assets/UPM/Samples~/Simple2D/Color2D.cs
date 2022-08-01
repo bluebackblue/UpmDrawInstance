@@ -29,8 +29,8 @@ namespace BlueBack.DrawInstance.Samples.Simple2D
 
 		/** drawinstance
 		*/
-		public BlueBack.DrwaInstance.DrawInstance drawinstance;
-		public BlueBack.DrwaInstance.Buffer<Color2D_Status> drawinstance_buffer;
+		public BlueBack.DrawInstance.DrawInstance drawinstance;
+		public BlueBack.DrawInstance.Buffer<Color2D_Status> drawinstance_buffer;
 
 		/** index
 		*/
@@ -67,8 +67,8 @@ namespace BlueBack.DrawInstance.Samples.Simple2D
 			}
 
 			//drawinstance
-			this.drawinstance = new BlueBack.DrwaInstance.DrawInstance(this.mesh);
-			this.drawinstance_buffer = new DrwaInstance.Buffer<Color2D_Status>(MAX_X * MAX_Y,24);
+			this.drawinstance = new BlueBack.DrawInstance.DrawInstance(this.mesh);
+			this.drawinstance_buffer = new BlueBack.DrawInstance.Buffer<Color2D_Status>(MAX_X * MAX_Y,24);
 
 			//index
 			this.index = 0;

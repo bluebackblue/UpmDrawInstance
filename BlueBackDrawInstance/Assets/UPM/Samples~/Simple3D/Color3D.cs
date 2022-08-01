@@ -27,8 +27,8 @@ namespace BlueBack.DrawInstance.Samples.Simple3D
 
 		/** drawinstance
 		*/
-		public BlueBack.DrwaInstance.DrawInstance drawinstance;
-		public BlueBack.DrwaInstance.Buffer<Color3D_Status> drawinstance_buffer;
+		public BlueBack.DrawInstance.DrawInstance drawinstance;
+		public BlueBack.DrawInstance.Buffer<Color3D_Status> drawinstance_buffer;
 
 		/** 計算用。
 		*/
@@ -49,8 +49,8 @@ namespace BlueBack.DrawInstance.Samples.Simple3D
 			this.camera = a_camera;
 
 			//drawinstance
-			this.drawinstance = new BlueBack.DrwaInstance.DrawInstance(this.mesh);
-			this.drawinstance_buffer = new DrwaInstance.Buffer<Color3D_Status>(MAX,80);
+			this.drawinstance = new BlueBack.DrawInstance.DrawInstance(this.mesh);
+			this.drawinstance_buffer = new BlueBack.DrawInstance.Buffer<Color3D_Status>(MAX,80);
 
 			//this
 			this.list = new Color3D_Item[MAX];

@@ -1,8 +1,8 @@
 
 
-/** BlueBack.DrwaInstance
+/** BlueBack.DrawInstance
 */
-namespace BlueBack.DrwaInstance
+namespace BlueBack.DrawInstance
 {
 	/** DrawInstance
 	*/
@@ -77,14 +77,6 @@ namespace BlueBack.DrwaInstance
 
 			//drawinstanceparam_raw
 			this.drawinstanceparam_raw = null;
-
-			//bound
-
-			//shadowcastingmode
-
-			//receiveshadows
-
-			//lightprobeusage
 		}
 
 		/** Draw

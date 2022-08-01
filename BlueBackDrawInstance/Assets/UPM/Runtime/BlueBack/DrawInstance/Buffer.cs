@@ -1,8 +1,8 @@
 
 
-/** BlueBack.DrwaInstance
+/** BlueBack.DrawInstance
 */
-namespace BlueBack.DrwaInstance
+namespace BlueBack.DrawInstance
 {
 	/** Buffer
 	*/
