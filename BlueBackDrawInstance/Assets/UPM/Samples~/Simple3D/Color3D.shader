@@ -13,15 +13,14 @@ Shader "BlueBack/DrawInstance/Samples/Simple3D/Color3D"
 	{
 		Tags
 		{
-			"RenderType" = "Transparent"
-			"Queue" = "Transparent"
+			"RenderType" = "Queue"
+			"Queue" = "Geometry"
 		}
 		Pass
 		{
 			Cull Off
-			ZTest Always
-			ZWrite Off
-			Blend SrcAlpha OneMinusSrcAlpha 
+			ZTest LEqual
+			ZWrite On
 
 			CGPROGRAM
 

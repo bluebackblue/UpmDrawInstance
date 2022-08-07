@@ -1,5 +1,12 @@
 
 
+/**
+	Copyright (c) blueback
+	Released under the MIT License
+	@brief ドローインスタンス。
+*/
+
+
 /** BlueBack.DrawInstance
 */
 namespace BlueBack.DrawInstance
