@@ -13,7 +13,7 @@ namespace BlueBack.DrawInstance
 {
 	/** DrawInstance
 	*/
-	public class DrawInstance : System.IDisposable
+	public sealed class DrawInstance : System.IDisposable
 	{
 		/** mesh
 		*/

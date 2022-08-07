@@ -6,7 +6,7 @@ namespace BlueBack.DrawInstance.Samples.Simple2D
 {
 	/** Main_MonoBehaviour
 	*/
-	public class Main_MonoBehaviour : UnityEngine.MonoBehaviour
+	public sealed class Main_MonoBehaviour : UnityEngine.MonoBehaviour
 	{
 		/** color2d
 		*/

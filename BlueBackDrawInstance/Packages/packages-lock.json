@@ -5,14 +5,14 @@
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "0a4a5597ca473e5ff31d5208eebb8bbad5843d58"
+      "hash": "3776b66f6ace41d5563742355ee48fb86d38736e"
     },
     "blueback.code": {
       "version": "https://github.com/bluebackblue/UpmCode.git?path=BlueBackCode/Assets/UPM",
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "43ca8a69a0aff25d65c9a92f5e9170338a41057e"
+      "hash": "45938952d8966e00843d23d905a9fc2ab1d18f4f"
     },
     "blueback.install": {
       "version": "https://github.com/bluebackblue/UpmInstall.git?path=BlueBackInstall/Assets/UPM",
