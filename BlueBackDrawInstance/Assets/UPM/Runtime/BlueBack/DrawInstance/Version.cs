@@ -21,7 +21,7 @@ namespace BlueBack.DrawInstance
 
 		/** packageversion
 		*/
-		public const string packageversion = "0.0.12";
+		public const string packageversion = "0.0.13";
 
 		/** GetPackageVersion
 		*/
